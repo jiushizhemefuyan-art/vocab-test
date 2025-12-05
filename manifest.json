@@ -1,0 +1,20 @@
+{
+  "name": "高三單字比賽 App",
+  "short_name": "單字比賽",
+  "start_url": "home.html",
+  "display": "standalone",
+  "background_color": "#121318",
+  "theme_color": "#F4F4F8",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
