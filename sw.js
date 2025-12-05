@@ -1,1 +1,0 @@
-const CACHE='v5-vocab-cache-v1';self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['home.html','vocab.html','flashcards.html','quiz.html','result.html','styles.css','app-common.js','data.js','manifest.json'])));self.skipWaiting();});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)));});
