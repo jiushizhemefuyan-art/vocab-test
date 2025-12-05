@@ -1,0 +1,11 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>錯題本</title><link rel='stylesheet' href='styles.css'></head><body><div class='container'><header><h1>錯題本</h1><div style="position:absolute;right:16px;top:16px"><button class="btn ghost" onclick="location.href=BASE_PATH+'home.html'">← 返回主選單</button></div></header><main><div id='info' class='status'>載入中…</div><div id='list' class='vocab-list' style='margin-top:12px'></div><div style='margin-top:12px'><button id='practice' class='btn'>練習錯題</button> <button id='clear' class='btn ghost'>清空本單元錯題</button></div></main></div><script src='app-common.js'></script><script>
+const unitW = qsParam('u')||'unit1';
+document.getElementById('info').textContent = unitW.toUpperCase() + ' — 錯題本';
+const listEl = document.getElementById('list');
+const wb = JSON.parse(localStorage.getItem('wrongBook')||'{}');
+const arr = (wb && wb[unitW])? wb[unitW] : [];
+if(arr.length===0){ listEl.innerHTML = '<p>目前沒有錯題，請先完成測驗以將錯題存入。</p>'; } else { arr.forEach((w,i)=>{ const el=document.createElement('div'); el.className='vocab-item'; el.innerHTML = `<div><strong>${i+1}. ${w.type==='A'?'英→中':'中→英'}</strong><div style="color:var(--muted)">題目：${escapeHtml(w.prompt)}</div></div><div style="text-align:right"><div style="color:#ef4444">你的錯誤答案：${escapeHtml(w.selected||'')}</div><div style="color:#16a34a">正確：${escapeHtml(w.correct)}</div><div style="margin-top:8px"><button class='btn small ghost' onclick='remove(${i})'>刪除</button></div></div>`; listEl.appendChild(el); }); }
+function remove(idx){ arr.splice(idx,1); const wb2 = JSON.parse(localStorage.getItem('wrongBook')||'{}'); wb2[unitW]=arr; localStorage.setItem('wrongBook', JSON.stringify(wb2)); location.reload(); }
+document.getElementById('practice').onclick = ()=>{ location.href = BASE_PATH + 'quiz.html?u=' + unitW + '&mode=wrong'; };
+document.getElementById('clear').onclick = ()=>{ if(confirm('確定清空本單元錯題？')){ const wb2 = JSON.parse(localStorage.getItem('wrongBook')||'{}'); wb2[unitW]=[]; localStorage.setItem('wrongBook', JSON.stringify(wb2)); location.reload(); } };
+</script></body></html>

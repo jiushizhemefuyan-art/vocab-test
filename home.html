@@ -1,0 +1,18 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>英文單字比賽練習系統</title><link rel="stylesheet" href="styles.css"></head><body><div class="container"><header><h1>英文單字比賽練習系統</h1></header><main><div class="unit-list" id="unit-list"></div></main></div><script src="data.js"></script><script>
+const unitList = document.getElementById('unit-list');
+Object.keys(vocabByUnit).forEach(u=>{
+  const card=document.createElement('div'); card.className='unit-card';
+  const title=document.createElement('div'); title.innerHTML='<strong>'+u.toUpperCase()+'</strong>';
+  const info=document.createElement('div'); info.className='status'; info.textContent=(vocabByUnit[u]||[]).length+' 單字 • 100 題';
+  const controls=document.createElement('div'); controls.className='controls';
+  const aBtn=document.createElement('button'); aBtn.className='btn'; aBtn.textContent='英翻中 (50題)'; aBtn.onclick=()=>location.href=BASE_PATH+'quiz.html?u='+u+'&mode=a';
+  const bBtn=document.createElement('button'); bBtn.className='btn'; bBtn.textContent='中翻英 (50題)'; bBtn.onclick=()=>location.href=BASE_PATH+'quiz.html?u='+u+'&mode=b';
+  const mBtn=document.createElement('button'); mBtn.className='btn'; mBtn.textContent='完整測驗 (100題)'; mBtn.onclick=()=>location.href=BASE_PATH+'quiz.html?u='+u+'&mode=mix';
+  const fBtn=document.createElement('button'); fBtn.className='btn ghost'; fBtn.textContent='單字卡'; fBtn.onclick=()=>location.href=BASE_PATH+'flashcards.html?u='+u;
+  const vBtn=document.createElement('button'); vBtn.className='btn ghost'; vBtn.textContent='單字總覽'; vBtn.onclick=()=>location.href=BASE_PATH+'vocab.html?u='+u;
+  const wBtn=document.createElement('button'); wBtn.className='btn ghost'; wBtn.textContent='錯題本'; wBtn.onclick=()=>location.href=BASE_PATH+'wrongbook.html?u='+u;
+  controls.appendChild(aBtn); controls.appendChild(bBtn); controls.appendChild(mBtn); controls.appendChild(fBtn); controls.appendChild(vBtn); controls.appendChild(wBtn);
+  card.appendChild(title); card.appendChild(info); card.appendChild(controls);
+  unitList.appendChild(card);
+});
+</script></body></html>
